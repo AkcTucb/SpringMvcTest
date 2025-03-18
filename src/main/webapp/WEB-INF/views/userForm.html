@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="${#strings.isEmpty(user) ? 'Добавление пользователя' : 'Редактирование пользователя'}"></title>
+</head>
+<body>
+<h2 th:text="${#strings.isEmpty(user) ? 'Добавление пользователя' : 'Редактирование пользователя'}"></h2>
+
+<form method="post" th:action="${#strings.isEmpty(user) ? '/user/add' : '/user/edit'}">
+    <input type="hidden" name="id" th:value="${user.id}" th:if="${user != null}" />
+
+    <label>Имя:</label>
+    <input type="text" name="name" th:value="${user.name}" required/><br><br>
+
+    <label>Email:</label>
+    <input type="email" name="email" th:value="${user.email}" required/><br><br>
+
+    <input type="submit" value="Сохранить"/>
+</form>
+
+<br>
+<a th:href="@{/users}">Назад к списку</a>
+</body>
+</html>
