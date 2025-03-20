@@ -29,8 +29,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(User user) {
-        userDao.updateUser(user);
+    public void updateUser(User userFromForm) {
+        User existingUser = userDao.getUserById(userFromForm.getId());
+        if (existingUser != null) {
+            existingUser.setName(userFromForm.getName());
+            existingUser.setEmail(userFromForm.getEmail());
+            userDao.updateUser(existingUser);
+        }
     }
 
     @Override
@@ -38,3 +43,4 @@ public class UserServiceImpl implements UserService {
         userDao.deleteUser(id);
     }
 }
+
